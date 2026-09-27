@@ -1,0 +1,76 @@
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;overflow:hidden;background:#000;color:#ddd;font-family:"Impact","Arial Narrow",sans-serif;user-select:none}
+#game{position:fixed;inset:0;width:100%;height:100%;display:block}
+body.pixel #game{image-rendering:pixelated}
+.hidden{display:none!important}
+
+.screen{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  background:radial-gradient(ellipse at center,rgba(20,0,0,.55),rgba(0,0,0,.92));z-index:20}
+#menu{background:radial-gradient(ellipse at 50% 40%,rgba(60,0,0,.35),rgba(0,0,0,.85) 70%)}
+.logo{text-align:center}
+.logo .bat{font-size:64px;filter:grayscale(1) brightness(.3) drop-shadow(0 0 12px #f5d000);}
+.logo h1{font-size:clamp(48px,9vw,110px);letter-spacing:6px;color:#e8e8e8;text-shadow:0 0 30px #600,4px 4px 0 #300}
+.logo h2{font-size:16px;letter-spacing:10px;color:#a00;font-family:monospace}
+.screen h2{letter-spacing:4px;font-size:32px;color:#eee}
+.buttons{display:flex;flex-direction:column;gap:10px;min-width:280px}
+button{font-family:inherit;font-size:22px;letter-spacing:3px;text-transform:uppercase;padding:12px 26px;background:rgba(10,10,10,.8);
+  color:#ccc;border:1px solid #333;border-left:4px solid #700;cursor:pointer;transition:.12s;text-align:left}
+button:hover:not(:disabled){background:#200;color:#fff;border-left-color:#f22;transform:translateX(4px)}
+button:disabled{opacity:.35;cursor:not-allowed}
+button small{display:block;font-family:monospace;font-size:12px;letter-spacing:0;text-transform:none;color:#888;margin-top:3px}
+button.sel{border-left-color:#f5d000;color:#fff;background:#1a1400}
+.back{margin-top:8px}
+#missionlist,#chapterlist,#gfxlist,#cheatlist{display:flex;flex-direction:column;gap:8px;width:min(620px,92vw);max-height:62vh;overflow:auto}
+.stars{float:right;color:#f5d000;font-size:16px}
+.cheat-summary{font:12px monospace;letter-spacing:1px;color:#f5d000;text-align:center;padding:2px}
+.cheat-entry span{display:flex;justify-content:space-between;gap:16px}
+.cheat-entry span b{font:12px monospace;color:#f5d000}
+.cheat-entry:disabled{opacity:.45}
+#cheatform{display:flex;gap:8px;width:min(620px,92vw)}
+#cheatinput{flex:1;min-width:0;padding:12px 14px;background:#080808;color:#f5d000;border:1px solid #555;font:18px monospace;letter-spacing:5px;text-transform:uppercase;user-select:text}
+#cheatinput:focus{outline:1px solid #a00;border-color:#a00}
+#cheatform button{padding:10px 18px}
+#cheatstatus{min-height:16px;font:12px monospace;color:#f5d000;text-align:center}
+#cheatlist{max-height:50vh}
+.controls{font-family:monospace;font-size:13px;color:#777;text-align:center;line-height:1.7}
+
+#hud{position:fixed;inset:0;pointer-events:none;z-index:5;font-family:monospace}
+#hp{position:absolute;left:24px;bottom:24px;width:240px;height:10px;background:#200;border:1px solid #500}
+#hpfill{height:100%;width:100%;background:linear-gradient(90deg,#700,#e11)}
+#objective{position:absolute;left:24px;top:22px;font-family:Impact,sans-serif;font-size:20px;letter-spacing:1px;color:#eee;text-shadow:2px 2px 0 #000;max-width:46vw;line-height:1.3}
+#objective small{display:block;font-family:monospace;font-size:13px;color:#e33}
+#stats{position:absolute;right:24px;top:22px;text-align:right;font-size:14px;color:#bbb;text-shadow:1px 1px 0 #000;line-height:1.6}
+#stats b{color:#f33;font-size:18px}
+#crosshair{position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;background:#fff8;border-radius:50%}
+#prompt{position:absolute;left:50%;top:62%;transform:translateX(-50%);font-size:16px;color:#fff;text-shadow:1px 1px 0 #000;text-align:center;background:#0008;padding:6px 14px;border-left:3px solid #d00}
+#prompt:empty{display:none}
+#prompt .crime{color:#f44;font-weight:bold}
+#feed{position:absolute;right:24px;bottom:84px;display:flex;flex-direction:column;align-items:flex-end;gap:4px}
+#feed div{background:#000a;padding:4px 10px;font-size:13px;border-right:3px solid #a00;animation:fin .25s}
+#feed div.good{border-right-color:#f5d000}
+@keyframes fin{from{opacity:0;transform:translateX(30px)}}
+#bigtext{position:absolute;left:0;right:0;top:30%;text-align:center;font-family:Impact,sans-serif;font-size:clamp(40px,7vw,90px);color:#d00;
+  text-shadow:0 0 20px #000,4px 4px 0 #000;letter-spacing:4px;opacity:0;transition:opacity .2s}
+#bigtext small{display:block;font-size:.3em;color:#eee;letter-spacing:2px}
+#bigtext.show{opacity:1}
+#detective-tint{position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(0,40,80,.05),rgba(0,30,70,.45));opacity:0;transition:opacity .25s;mix-blend-mode:screen}
+#detective-tint.on{opacity:1}
+
+#letterbox{position:fixed;inset:0;z-index:15;pointer-events:none}
+#letterbox .bar{position:absolute;left:0;right:0;height:12vh;background:#000}
+#letterbox .top{top:0}#letterbox .bot{bottom:0}
+#subtitle{position:absolute;left:50%;bottom:14vh;transform:translateX(-50%);width:min(900px,90vw);text-align:center;font-family:Georgia,serif;font-size:clamp(16px,2.2vw,24px);color:#eee;text-shadow:2px 2px 4px #000;line-height:1.4}
+#speaker{display:block;font-family:Impact,sans-serif;letter-spacing:3px;font-size:.75em;color:#c00;margin-bottom:4px}
+#skip{position:absolute;right:20px;bottom:3vh;font-family:monospace;font-size:12px;color:#666}
+#resbody{font-family:monospace;font-size:16px;line-height:1.8;text-align:center;color:#bbb}
+#resbody .big{font-family:Impact;font-size:40px;color:#f5d000;letter-spacing:6px}
+#resbody .cheatreward{color:#f5d000;font-weight:bold}
+
+#hotbar{position:absolute;left:50%;bottom:18px;transform:translateX(-50%);display:flex;gap:4px}
+#hotbar .slot{position:relative;width:74px;height:48px;background:rgba(0,0,0,.65);border:1px solid #333;border-bottom:2px solid #400;padding:4px 5px;overflow:hidden}
+#hotbar .slot.sel{border-color:#f5d000;background:rgba(40,30,0,.75)}
+#hotbar .k{position:absolute;right:5px;top:3px;font-size:10px;color:#777}
+#hotbar .n{display:block;font-family:Impact,sans-serif;font-size:12px;letter-spacing:.5px;color:#ddd;line-height:1.1;margin-top:10px}
+#hotbar .c{position:absolute;left:5px;top:3px;font-size:10px;color:#e33}
+#hotbar .cdbar{position:absolute;left:0;bottom:0;height:3px;background:#f5d000;width:0}
+#hp{bottom:78px}

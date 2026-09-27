@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petty Justice</title>
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": { "three": "https://esm.sh/three@0.160.0" } }
+</script>
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<div id="hud" class="hidden">
+  <div id="hp"><div id="hpfill"></div></div>
+  <div id="objective"></div>
+  <div id="stats"></div>
+  <div id="crosshair"></div>
+  <div id="prompt"></div>
+  <div id="feed"></div>
+  <div id="bigtext"></div>
+  <div id="detective-tint"></div>
+  <div id="hotbar"></div>
+</div>
+
+<div id="letterbox" class="hidden"><div class="bar top"></div><div class="bar bot"></div>
+  <div id="subtitle"><span id="speaker"></span><span id="line"></span></div>
+  <div id="skip">[SPACE] next &nbsp; [ESC] skip</div>
+</div>
+
+<div id="menu" class="screen">
+  <div class="logo"><div class="bat">🦇</div><h1>PETTY JUSTICE</h1><h2>GOTHAM DESERVES WORSE</h2></div>
+  <div class="buttons" id="mainbtns">
+    <button data-act="story">Story</button>
+    <button data-act="missions">Missions</button>
+    <button data-act="freeplay">Freeplay</button>
+    <button data-act="cheats">Cheat Codes</button>
+    <button data-act="settings">Graphics</button>
+  </div>
+  <p class="controls">WASD move · Shift sprint · Space jump · Mouse look · Click use item · 1-0 items · E takedown · Q detective vision · R read glyphs · Esc pause</p>
+</div>
+
+<div id="missions" class="screen hidden"><h2>Missions</h2><div id="missionlist"></div><button class="back">Back</button></div>
+<div id="chapters" class="screen hidden"><h2>Story — The Long Petty Night</h2><div id="chapterlist"></div><button class="back">Back</button></div>
+<div id="cheats" class="screen hidden"><h2>Cheat Codes</h2>
+  <form id="cheatform" autocomplete="off">
+    <input id="cheatinput" type="text" maxlength="4" placeholder="ENTER CODE" aria-label="Enter cheat code">
+    <button type="submit">Enter</button>
+  </form>
+  <div id="cheatstatus" aria-live="polite"></div>
+  <div id="cheatlist"></div><button class="back">Back</button>
+</div>
+<div id="settings" class="screen hidden"><h2>Graphics</h2>
+  <div id="gfxlist">
+    <button data-q="chromebook">School Chromebook<small>district-issued. 14 fps. blocked by IT.</small></button>
+    <button data-q="psx">PSX<small>1997. wobbly polygons. memory card required.</small></button>
+    <button data-q="normal">Normal<small>realistic. shadows. rain. regret.</small></button>
+  </div>
+  <button class="back">Back</button>
+</div>
+<div id="pause" class="screen hidden"><h2>Paused</h2>
+  <div class="buttons">
+    <button data-act="resume">Resume</button>
+    <button data-act="cheats">Cheat Codes</button>
+    <button data-act="pgfx">Graphics: <span id="pgfxname"></span></button>
+    <button data-act="quit">Quit to Menu</button>
+  </div>
+  <p class="controls">WASD move · Shift sprint · Space jump · Mouse look<br>Left click use item · 1-0 / wheel switch item · F punch · E takedown · Q / Right click detective vision · R read glyphs</p>
+</div>
+<div id="result" class="screen hidden"><h2 id="restitle"></h2><div id="resbody"></div>
+  <div class="buttons"><button data-act="resnext">Continue</button></div></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
